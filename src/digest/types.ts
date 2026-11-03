@@ -28,6 +28,4 @@ export type Night = {
 };
 
 // `null` means "no file for that night" (the routes answer 404).
-export function readNight(_runsDir: string, _night: string): Night | null {
-  throw new Error('readNight is not implemented yet (issue #2)');
-}
+export { readNight } from './read.js';
