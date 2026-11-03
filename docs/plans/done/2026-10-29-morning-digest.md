@@ -1,8 +1,9 @@
 ---
 plan: morning-digest
-status: ready
+status: done
 owner: rook
 opened: 2026-10-29
+closed: 2026-11-03
 ---
 
 # Morning digest
@@ -77,3 +78,20 @@ page again with `LANE_MARKER` unset (the banner reads "no marker set") and uploa
 link. Move this plan to `docs/plans/done/` with its issue list.
 
 Done when: the preview link no longer shows the lane marker.
+
+## Issues
+
+| # | Issue | Blocked by | Worker | Closed |
+|---|-------|-----------|--------|--------|
+| 1 | Digest types | — | vscode-copilot · sonnet-5.5 · max | 2026-11-03 |
+| 2 | Run log reader | #1 | vscode-copilot · sonnet-5.5 · max | 2026-11-03 |
+| 3 | Digest page | #1 | vscode-copilot · haiku-4.5 · unknown | 2026-11-03 |
+| 4 | Digest JSON | #1 | vscode-copilot · haiku-4.5 · unknown | 2026-11-03 |
+| 5 | Board link | #1 | vscode-copilot · haiku-4.5 · unknown | 2026-11-03 |
+| 6 | Route tests | #1 | vscode-copilot · haiku-4.5 · unknown | 2026-11-03 |
+| 7 | Preview for review | #3, #4, #5, #6 | vscode-copilot · sonnet-5.5 · max | 2026-11-03 |
+| 8 | Clean up | #7 | vscode-copilot · sonnet-5.5 · max | 2026-11-03 |
+
+#3 to #6 could start once #1 was in. They ran after #2 so each could check its own Done when, in two waves: #3 and #4, then #5 and #6.
+Review fixes went into the merge commits: one shared import in `src/app.tsx` (#3, #4), and no `any` plus a direct flag-cell check in the #6 tests.
+The preview link carried the lane marker until the clean-up (#8). See ADR 0003.
