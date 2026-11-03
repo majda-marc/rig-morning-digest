@@ -13,8 +13,33 @@ describe('status board', () => {
     expect(html).toContain('2026-10-28');
   });
 
+  it('links both nights to their digests with correct counts', async () => {
+    const res = await createApp(config).request('/');
+    const html = await res.text();
+    expect(res.status).toBe(200);
+    
+    // Check that both nights are linked correctly
+    expect(html).toContain('<a href="/digest/2026-10-28">2026-10-28</a>');
+    expect(html).toContain('<a href="/digest/2026-10-27">2026-10-27</a>');
+    
+    // Check counts for 2026-10-28 (ok 4, retry 0, fail 1)
+    expect(html).toContain('2026-10-28</a> ok 4 · retry 0 · fail 1');
+    
+    // Check counts for 2026-10-27 (ok 4, retry 0, fail 0)
+    expect(html).toContain('2026-10-27</a> ok 4 · retry 0 · fail 0');
+    
+    // Verify that both digest pages respond with 200
+    const app = createApp(config);
+    const digest28 = await app.request('/digest/2026-10-28');
+    expect(digest28.status).toBe(200);
+    
+    const digest27 = await app.request('/digest/2026-10-27');
+    expect(digest27.status).toBe(200);
+  });
+
   it('health answers with the lane id', async () => {
     const res = await createApp(config).request('/health');
     expect(await res.json()).toEqual({ ok: true, lane: 'lane-07' });
   });
 });
+
